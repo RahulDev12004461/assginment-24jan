@@ -1,0 +1,119 @@
+Q1::
+#include <iostream>
+using namespace std;
+
+class EXCEPTIONEXAMPLE : public std::exception {
+public:
+char * what () {
+return "Custom C++ Exception";
+}
+};
+
+int main() {
+try {
+throw EXCEPTIONEXAMPLE();
+} catch (EXCEPTIONEXAMPLE ee) {
+cout << "Caught EXCEPTIONEXAMPLE" << endl;
+cout << ee.what();
+}
+}
+
+Q2::
+What happens if an exception is not caught in a C++ program?
+answer-
+If an exception is not caught, your program will terminate immediately
+(and the stack may not be unwound, so your program may not even clean up after itself properly).
+
+Q3::
+A try-catch block is used to handle exceptions that are thrown within the try block.
+The catch block contains the code that will be executed if an exception is thrown.
+
+A try-throw-catch block is similar, but in this case the throw statement is used explicitly within
+the try block to throw an exception, rather than the exception being thrown implicitly by the code.
+The catch block would then handle the exception that was thrown explicitly.
+
+In general try-catch is used to handle the exception that occurs during the execution of the try block where as
+try-throw-catch can be used to handle the exception that might be thrown as a result of some specific condition.
+
+
+
+
+
+
+Q4::
+How do you re-throw an exception in C++? WITH EXAMPLE
+answer-
+Rethrowing an expression from within an exception handler can be done by calling throw, by itself, with no exception.
+This causes current exception to be passed on to an outer try/catch sequence.An exception can only be rethrown from within a catch block.
+When an exception is rethrown, it is propagated outward to the next catch block.
+example-
+#include<iostream>
+using namespace std;
+main()
+{int a;
+int b;
+again:cin>>a;
+cin>>b;
+try// write the code in this block which can cause exception
+{
+
+if(b!=0)
+{
+int c=a/b;
+cout<<c;
+cout<<"\ndone";
+}
+else
+
+throw (b);//throwing the exception
+
+}
+catch(int i)//this will catch the exception
+{
+cout<<"exception caught b="<<b;
+cout<<"\nenter the values again\n";
+goto again;
+}
+cout<<"\nend";
+}
+
+
+
+Q5::
+#include <iostream>
+#include <exception>
+using namespace std;
+class MyException : public exception{
+public:
+const char * what() const throw()
+{
+return "Attempted to divide by zero!\n";
+}
+};
+int main()
+{
+try
+{
+int x, y;
+cout << "Enter the two numbers : \n";
+cin >> x >> y;
+if (y == 0)
+{
+MyException z;
+throw z;
+}
+else
+{
+cout << "x / y = " << x/y << endl;
+}
+}
+catch(exception& e)
+{
+cout << e.what();
+}
+}
+Answer-
+Enter the two numbers :
+2
+0
+Attempted to divide by zero!
